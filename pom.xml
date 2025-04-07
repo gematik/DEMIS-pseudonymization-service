@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>de.gematik.demis</groupId>
+    <artifactId>spring-parent</artifactId>
+    <version>2.7.2</version>
+    <relativePath></relativePath><!-- lookup parent from repository -->
+  </parent>
+  <artifactId>pseudonymization-service</artifactId>
+  <version>3.2.5-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>pseudonymization-service</name>
+  <description>Pseudonymization Service</description>
+  <licenses>
+    <license>
+      <name>Licensed under the EUPL 1.2</name>
+      <url>https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12</url>
+    </license>
+  </licenses>
+  <properties>
+    <java.version>21</java.version><!-- Dependencies -->
+    <icu4j.version>77.1</icu4j.version>
+  </properties><!-- Addressing CVEs -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20250107</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.woodstox</groupId>
+        <artifactId>stax2-api</artifactId>
+        <version>4.2.2</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies><!-- Service-Base -->
+    <dependency>
+      <groupId>com.ibm.icu</groupId>
+      <artifactId>icu4j</artifactId>
+      <version>${icu4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.gematik.demis</groupId>
+      <artifactId>service-base</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jdbc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-xml</artifactId>
+      <version>${jackson-bom.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${testcontainers.version}</version>
+      <scope>test</scope>
+    </dependency><!-- Test Containers -->
+    <dependency>
+      <groupId>de.gematik.demis</groupId>
+      <artifactId>spring-parent</artifactId>
+      <classifier>tests</classifier>
+      <type>test-jar</type>
+      <version>${project.parent.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
