@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.fullName }}
+  labels:
+    {{- include "pseudonymization-service-istio.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.ports.http }}
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ .Values.fullName }}

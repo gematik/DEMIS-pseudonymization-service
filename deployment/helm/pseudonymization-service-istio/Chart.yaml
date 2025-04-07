@@ -1,0 +1,6 @@
+apiVersion: v2
+name: pseudonymization-service-istio
+description: DEMIS pseudonymization-service Istio Configuration
+type: application
+version: 3.2.4
+appVersion: "3.2.4"

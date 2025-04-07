@@ -1,0 +1,69 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<!--
+  #%L
+  pseudonymization-service
+  %%
+  Copyright (C) 2025 gematik GmbH
+  %%
+  Licensed under the EUPL, Version 1.2 or - as soon they will be approved by the
+  European Commission – subsequent versions of the EUPL (the "Licence").
+  You may not use this work except in compliance with the Licence.
+  
+  You find a copy of the Licence in the "Licence" file or at
+  https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+  
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the Licence is distributed on an "AS IS" basis,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either expressed or implied.
+  In case of changes by gematik find details in the "Readme" file.
+  
+  See the Licence for the specific language governing permissions and limitations under the Licence.
+  #L%
+  -->
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="demis-entwicklung" id="1701231964242-1">
+        <createTable tableName="secrets">
+            <column autoIncrement="true" name="id" remarks="Id of Pseudonym" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="secrets_pkey"/>
+            </column>
+            <column name="name_fcn_first" remarks="Pseudonym Secret of Name first function" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name_fcn_second" remarks="Pseudonym Secret of Name first function" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_fcn_first" remarks="Pseudonym Secret of Birthdate first function" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_fcn_second" remarks="Pseudonym Secret of Birthdate second function" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" remarks="Creation timestamp of the pseudonym" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="demis-entwicklung" id="1701231964242-2">
+        <createTable tableName="secrets_two">
+            <column autoIncrement="true" name="id" remarks="Id of Pseudonym" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="secrets_two_pkey"/>
+            </column>
+            <column name="name_fcn_first" remarks="Pseudonym Secret of Name first function" type="VARCHAR(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name_fcn_second" remarks="Pseudonym Secret of Name second function" type="VARCHAR(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_fcn_first" remarks="Pseudonym Secret of Birthdate first function" type="VARCHAR(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_fcn_second" remarks="Pseudonym Secret of Birthdate second function" type="VARCHAR(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" remarks="Creation timestamp of the pseudonym" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

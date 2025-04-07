@@ -1,0 +1,6 @@
+apiVersion: v2
+name: pseudonymization-service
+description: DEMIS Pseudonym Creation Service Helm Chart
+type: application
+version: 3.2.4
+appVersion: "3.2.4"
