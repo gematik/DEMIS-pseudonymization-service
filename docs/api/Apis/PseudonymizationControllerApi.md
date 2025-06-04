@@ -29,6 +29,6 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/vnd.demis_pseudonymization+json, application/json
-- **Accept**: application/vnd.demis_pseudonymization+json, application/json
+- **Content-Type**: application/json, application/vnd.demis_pseudonymization+json
+- **Accept**: application/json, application/vnd.demis_pseudonymization+json
 

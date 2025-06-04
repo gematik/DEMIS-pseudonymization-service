@@ -122,11 +122,10 @@ service:
 # Default Resources
 resources:
   limits:
-    cpu: "2000m"
-    memory: "2500Mi"
+    memory: "2200Mi"
   requests:
-    cpu: "200m"
-    memory: "2Gi"
+    cpu: "100m"
+    memory: "2200Mi"
 
 autoscaling:
   enabled: false

@@ -14,13 +14,15 @@ spec:
         {{- toYaml .Values.istio.virtualService.http.match | nindent 6 }}
       rewrite:
         uri: {{ .Values.istio.virtualService.http.rewrite.uri }}
-      {{- if (and (hasKey .Values.istio.virtualService "http") (hasKey .Values.istio.virtualService.http "timeout")) }}
+      {{- if (and (hasKey .Values.istio.virtualService "http") (hasKey .Values.istio.virtualService.http "timeout") (.Values.istio.virtualService.http.timeout)) }}
       timeout: {{ .Values.istio.virtualService.http.timeout }}
       {{- end }}
       {{- if (and (hasKey .Values.istio.virtualService "http") (hasKey .Values.istio.virtualService.http "retries") (.Values.istio.virtualService.http.retries.enable)) }}
       retries:
-        attempts: {{ .Values.istio.virtualService.http.retries.attempts | default 3 }}
-        perTryTimeout: {{ .Values.istio.virtualService.http.retries.perTryTimeout | default "2s" }}
+        attempts: {{ .Values.istio.virtualService.http.retries.attempts | default 0 }}
+        {{- if .Values.istio.virtualService.http.retries.perTryTimeout }}
+        perTryTimeout: {{ .Values.istio.virtualService.http.retries.perTryTimeout }}
+        {{- end }}
         {{- if .Values.istio.virtualService.http.retries.retryOn }}
         retryOn: {{ .Values.istio.virtualService.http.retries.retryOn }}
         {{- end }}
