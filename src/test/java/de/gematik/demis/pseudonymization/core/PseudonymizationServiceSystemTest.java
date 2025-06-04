@@ -19,6 +19,10 @@ package de.gematik.demis.pseudonymization.core;
  * In case of changes by gematik find details in the "Readme" file.
  *
  * See the Licence for the specific language governing permissions and limitations under the Licence.
+ *
+ * *******
+ *
+ * For additional notes and disclaimer from gematik and in case of changes by gematik find details in the "Readme" file.
  * #L%
  */
 
@@ -34,6 +38,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -235,6 +241,29 @@ class PseudonymizationServiceSystemTest extends SpringTestContainerStarter {
     final PseudonymizationRequest pseudonymizationRequest =
         new PseudonymizationRequest("test", "nvp", "", "Max", "     ");
 
+    Assertions.assertThrows(
+        ConstraintViolationException.class,
+        () -> pseudonymizationService.generatePseudonym(pseudonymizationRequest));
+  }
+
+  @ParameterizedTest
+  @ValueSource(
+      strings = {
+        "2023/08/13",
+        "13.08.2023 12:00:00",
+        "2023.13.08",
+        "13.08.23",
+        "JA.2023",
+        "1.1.2015",
+        "1.12.2015",
+        "01.1.2015"
+      })
+  void expectValidationFailsForInvalidDateFormat(String invalidDate) {
+    // GIVEN an invalid date format
+    final PseudonymizationRequest pseudonymizationRequest =
+        new PseudonymizationRequest("test", "nvp", "", "Max", invalidDate);
+
+    // THEN expect a ConstraintViolationException
     Assertions.assertThrows(
         ConstraintViolationException.class,
         () -> pseudonymizationService.generatePseudonym(pseudonymizationRequest));

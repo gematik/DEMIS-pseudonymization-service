@@ -19,13 +19,21 @@ package de.gematik.demis.pseudonymization.core.exception;
  * In case of changes by gematik find details in the "Readme" file.
  *
  * See the Licence for the specific language governing permissions and limitations under the Licence.
+ *
+ * *******
+ *
+ * For additional notes and disclaimer from gematik and in case of changes by gematik find details in the "Readme" file.
  * #L%
  */
 
 import de.gematik.demis.pseudonymization.core.PseudonymizationResponse;
 import jakarta.validation.ValidationException;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import javax.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,11 +46,54 @@ public class ResponseExceptionHandler {
   private static final String INTERNAL_ERROR_MESSAGE =
       "An Internal Server error has occurred. Please check the logs for more information about the issue.";
 
-  @ExceptionHandler({ValidationException.class, MethodArgumentNotValidException.class})
-  protected ResponseEntity<PseudonymizationResponse> handleConstraint(Exception ex) {
-    // Do not log the full message, it can contain sensitive data
-    log.error("Invalid argument for request");
-    return ResponseEntity.badRequest().body(new PseudonymizationResponse("Invalid request"));
+  /** Occurs when a validator encounters invalid data. Contains the affected field name */
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  protected ResponseEntity<PseudonymizationResponse> handleMethodArgumentNotValidException(
+      MethodArgumentNotValidException ex) {
+    String errorDetails =
+        ex.getBindingResult().getFieldErrors().stream()
+            .map(this::formatFieldError)
+            .collect(Collectors.joining("; "));
+    log.error("Invalid argument for request: {}", errorDetails);
+    return ResponseEntity.badRequest().body(new PseudonymizationResponse(errorDetails));
+  }
+
+  protected String formatFieldError(FieldError fieldError) {
+    if (fieldError.getField().equals("dateOfBirth")) {
+      final String maskedValue = maskDate(Objects.toString(fieldError.getRejectedValue(), ""));
+      return String.format(
+          "Field '%s': '%s' is not a valid date format (expected one of: YYYY, mm.YYYY, dd.mm.YYYY) or out of range (older than 01.01.1800)",
+          fieldError.getField(), maskedValue);
+    } else {
+      return String.format("Field '%s': Not a valid value)", fieldError.getField());
+    }
+  }
+
+  /** Method is package-private to be exposed to tests. */
+  @Nonnull
+  static String maskDate(@Nonnull String input) {
+    return input
+        .chars()
+        .mapToObj(
+            c -> {
+              if (Character.isDigit(c)) return "D";
+              else if (Character.isLetter(c)) return "W";
+              else if ("./- ".indexOf(c) >= 0) return String.valueOf((char) c);
+              else return "?";
+            })
+        .collect(Collectors.joining());
+  }
+
+  /**
+   * Triggers when something fails during validation. Does not necessarily have to be the validation
+   * itself. Does not contain any details about the error.
+   */
+  @ExceptionHandler(ValidationException.class)
+  protected ResponseEntity<PseudonymizationResponse> handleValidationException(
+      ValidationException ex) {
+    String errorDetails = ex.getMessage() != null ? ex.getMessage() : "Validation error occurred";
+    log.error("Validation error occurred: {}", errorDetails);
+    return ResponseEntity.badRequest().body(new PseudonymizationResponse(errorDetails));
   }
 
   @ExceptionHandler({IllegalArgumentException.class})

@@ -2,6 +2,16 @@
 
 # Release Pseudonymization Service
 
+## Release 3.3.1
+### changed
+- Updated ospo-resources for adding additional notes and disclaimer
+- setting new ressources in helm chart
+- setting new timeouts and retries in helm chart
+- change base chart to istio hostnames
+- update dependencies
+- added field name where validation errors occur to log
+- added masked view of birthdate input to include a hint what kind of pattern error might have occurred
+
 ## Release 3.3.0
 ### changed
 - Implement new pseudonymization algorithm
