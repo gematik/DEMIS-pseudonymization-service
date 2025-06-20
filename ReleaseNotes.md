@@ -2,6 +2,11 @@
 
 # Release Pseudonymization Service
 
+## Release 3.4.0
+### changed
+- Set default rotation period for §7.3 Diseases 'hiv' and 'trp' (Syphilis) to 3652 days (10 years)
+- Updated dependencies
+
 ## Release 3.3.1
 ### changed
 - Updated ospo-resources for adding additional notes and disclaimer

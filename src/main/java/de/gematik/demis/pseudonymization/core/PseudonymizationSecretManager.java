@@ -90,7 +90,7 @@ public class PseudonymizationSecretManager {
 
   @Scheduled(cron = "${secrets.one.reloading.cron-schedule}")
   @ConditionalOnProperty(prefix = "secrets.one.reloading", name = "enabled", havingValue = "true")
-  public void rotateSecretOne() {
+  public void reloadSecretOne() {
     this.secretOneLoaderService.reload();
   }
 
@@ -100,7 +100,7 @@ public class PseudonymizationSecretManager {
    */
   @Scheduled(cron = "${secrets.two.reloading.cron-schedule}")
   @ConditionalOnProperty(prefix = "secrets.two.reloading", name = "enabled", havingValue = "true")
-  public void rotateSecretTwo() {
+  public void reloadSecretTwo() {
     this.secretTwoLoaderService.reload();
   }
 

@@ -29,7 +29,7 @@ package de.gematik.demis.pseudonymization.util;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 public class PostgresStarter extends PostgreSQLContainer<PostgresStarter> {
-  private static final String IMAGE_VERSION = "postgres:14";
+  private static final String IMAGE_VERSION = "postgres:16";
   private static PostgresStarter container;
 
   private PostgresStarter() {

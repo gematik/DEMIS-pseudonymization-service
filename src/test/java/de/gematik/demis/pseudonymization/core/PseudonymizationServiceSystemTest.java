@@ -61,8 +61,8 @@ class PseudonymizationServiceSystemTest extends SpringTestContainerStarter {
     databaseConnector.cleanSecretTwoEntries();
     databaseConnector.writeInitialSecretOneEntries();
     databaseConnector.writeInitialSecretTwoEntries();
-    secretManager.rotateSecretOne();
-    secretManager.rotateSecretTwo();
+    secretManager.reloadSecretOne();
+    secretManager.reloadSecretTwo();
   }
 
   @Test
@@ -170,7 +170,7 @@ class PseudonymizationServiceSystemTest extends SpringTestContainerStarter {
     // GIVEN the trigger of a Rotation of Secrets
     Assertions.assertDoesNotThrow(() -> secretOneRotationService.createNewSecrets());
     // AND Reload secrets
-    Assertions.assertDoesNotThrow(() -> secretManager.rotateSecretOne());
+    Assertions.assertDoesNotThrow(() -> secretManager.reloadSecretOne());
     // THEN generate a new Pseudonym
     final PseudonymizationResponse secondResponse =
         pseudonymizationService.generatePseudonym(pseudonymizationRequest);
@@ -190,7 +190,7 @@ class PseudonymizationServiceSystemTest extends SpringTestContainerStarter {
     // GIVEN the trigger of a Rotation of Secrets
     Assertions.assertDoesNotThrow(() -> secretTwoRotationService.createNewSecrets());
     // AND Reload secrets
-    Assertions.assertDoesNotThrow(() -> secretManager.rotateSecretTwo());
+    Assertions.assertDoesNotThrow(() -> secretManager.reloadSecretTwo());
     // THEN generate a new Pseudonym
     final PseudonymizationResponse secondResponse =
         pseudonymizationService.generatePseudonym(pseudonymizationRequest);
@@ -205,7 +205,7 @@ class PseudonymizationServiceSystemTest extends SpringTestContainerStarter {
 
     final var initialSecrets = secretOneLoaderSvc.secretPairFromDatabase();
     // Reload
-    Assertions.assertDoesNotThrow(() -> secretManager.rotateSecretOne());
+    Assertions.assertDoesNotThrow(() -> secretManager.reloadSecretOne());
 
     final var newSecrets = secretOneLoaderSvc.secretPairFromDatabase();
 
@@ -217,7 +217,7 @@ class PseudonymizationServiceSystemTest extends SpringTestContainerStarter {
 
     final var initialSecrets = secretTwoLoaderSvc.secretPairFromDatabase();
     // Reload
-    Assertions.assertDoesNotThrow(() -> secretManager.rotateSecretTwo());
+    Assertions.assertDoesNotThrow(() -> secretManager.reloadSecretTwo());
 
     final var newSecrets = secretTwoLoaderSvc.secretPairFromDatabase();
 
