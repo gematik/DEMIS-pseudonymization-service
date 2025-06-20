@@ -123,7 +123,7 @@ class SecretTwoGenerationServiceSystemTest extends SpringTestContainerStarter {
                     "DDDD",
                     Timestamp.from(
                         LocalDate.now()
-                            .minusDays(2190)
+                            .minusDays(7304)
                             .atStartOfDay(ZoneId.of("UTC"))
                             .toInstant()))));
     Assertions.assertDoesNotThrow(
@@ -137,7 +137,7 @@ class SecretTwoGenerationServiceSystemTest extends SpringTestContainerStarter {
                     "DDDD",
                     Timestamp.from(
                         LocalDate.now()
-                            .minusDays(1095)
+                            .minusDays(3652)
                             .atStartOfDay(ZoneId.of("UTC"))
                             .toInstant()))));
 

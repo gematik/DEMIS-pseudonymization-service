@@ -48,7 +48,7 @@ import org.springframework.validation.annotation.Validated;
 public record SecretTwoGenerationConfiguration(
     boolean enabled,
     boolean initOnMissing,
-    @Min(1) @Max(1200) int daysOfValidity,
+    @Min(1) @Max(3652) int daysOfValidity,
     @Min(1) @Max(70) int secretLength,
     @NotBlank String supportedSymbols,
     @NotBlank String cronSchedule)
