@@ -7,7 +7,7 @@ All URIs are relative to *http://localhost*
 
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|
-| *PseudonymizationControllerApi* | [**generatePseudonymWithLegacyMediaTypes**](Apis/PseudonymizationControllerApi.md#generatepseudonymwithlegacymediatypes) | **POST** /pseudonymization |  |
+| *PseudonymizationControllerApi* | [**generatePseudonymWithLegacyMediaTypes**](Apis/PseudonymizationControllerApi.md#generatePseudonymWithLegacyMediaTypes) | **POST** /pseudonymization |  |
 
 
 <a name="documentation-for-models"></a>
