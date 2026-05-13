@@ -1,6 +1,10 @@
 <div style="text-align:right"><img src="https://raw.githubusercontent.com/gematik/gematik.github.io/master/Gematik_Logo_Flag_With_Background.png" width="250" height="47" alt="gematik GmbH Logo"/> <br/> </div> <br/>
 
 # Release Pseudonymization Service
+## Release 3.5.0 
+### changed
+- Removed istio helm chart
+- updated base-image and updated from java 21 to java 25
 
 ## Release 3.4.1
 ### changed
