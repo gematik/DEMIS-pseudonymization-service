@@ -8,7 +8,7 @@
     <relativePath></relativePath><!-- lookup parent from repository -->
   </parent>
   <artifactId>pseudonymization-service</artifactId>
-  <version>3.4.2-SNAPSHOT</version>
+  <version>3.5.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>pseudonymization-service</name>
   <description>Pseudonymization Service</description>

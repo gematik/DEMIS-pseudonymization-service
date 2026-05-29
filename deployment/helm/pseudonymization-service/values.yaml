@@ -6,6 +6,7 @@ replicaCount: 2
 # Enables debug mode
 debug:
   enable: false
+  params: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:9000"
 
 # Required Values for the Chart
 required:
@@ -44,14 +45,16 @@ deploymentLabels: {}
 # customEnvVars
 #   key: value
 customEnvVars:
+  JAVA_TOOL_OPTIONS: "-XX:ActiveProcessorCount=2 -XX:MaxRAMPercentage=40.0 -XX:MaxMetaspaceSize=128m -XX:+UseG1GC"
+  TZ: "Europe/Berlin"
   DB_URL: "jdbc:postgresql://pgbouncer.demis.svc.cluster.local:5432/pseudonymization"
   DB_USERNAME: "pseudo-admin"
 
 # Define custom Container Entrypoint and Arguments (e.g. JVM Tuning)
 # If not given, the Entrypoint defined in Dockerfile will be used
 application:
-  entrypoint: ["java"]
-  parameters: ["-XX:ActiveProcessorCount=2", "-XX:MaxRAMPercentage=80.0", "-XX:+TieredCompilation", "-XX:+UseG1GC", "-jar", "/app.jar"]
+  entrypoint: []
+  parameters: []
 
 # Define Image Pull Secrets if using private registry
 imagePullSecrets: []
@@ -122,10 +125,10 @@ service:
 # Default Resources
 resources:
   limits:
-    memory: "2200Mi"
+    memory: "400Mi"
   requests:
     cpu: "100m"
-    memory: "2200Mi"
+    memory: "400Mi"
 
 autoscaling:
   enabled: false

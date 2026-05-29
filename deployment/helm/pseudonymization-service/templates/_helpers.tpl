@@ -96,3 +96,33 @@ Get Default MountPath for Secrets
 {{- define "pseudonymization-service.secretMountPath" -}}
 {{- print "/secrets" }}
 {{- end }}
+
+{{/*
+Environment Variables
+*/}}
+{{- define "pseudonymization-service.env" -}}
+{{- $envs := dict -}}
+{{- $envs = set $envs "SPRING_CONFIG_IMPORT" (printf "optional:configtree:%s/*/" ( include "pseudonymization-service.secretMountPath" .)) -}}
+{{- if .Values.customEnvVars -}}
+{{- range $key, $value := .Values.customEnvVars -}}
+{{ if $value -}}
+{{- $envs = set $envs $key $value }}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- if .Values.debug.enable -}}
+{{- $toolOptions := printf "%s %s" (get $envs "JAVA_TOOL_OPTIONS") .Values.debug.params | trim -}}
+{{- $envs = set $envs "JAVA_TOOL_OPTIONS" $toolOptions -}}
+{{- end -}}
+{{- range $i, $key := keys $envs | sortAlpha -}}
+{{- if $i }}
+{{ end -}}
+{{- $v := get $envs $key -}}
+- name: {{ $key | quote }}
+{{- if kindIs "string" $v }}
+  value: {{ tpl $v $ | quote }}
+{{- else }}
+  value: {{ $v | quote }}
+{{- end }}
+{{- end -}}
+{{- end -}}
