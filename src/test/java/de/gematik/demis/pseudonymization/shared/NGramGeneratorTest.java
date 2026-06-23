@@ -30,7 +30,7 @@ package de.gematik.demis.pseudonymization.shared;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class NGramGeneratorTest {
 

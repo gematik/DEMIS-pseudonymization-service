@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.ibm.icu.text.Transliterator;
 import de.gematik.demis.pseudonymization.config.BloomPseudonymConfiguration;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PseudonymPreprocessingServiceTest {
 

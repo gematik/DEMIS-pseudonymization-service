@@ -27,17 +27,17 @@ package de.gematik.demis.pseudonymization.util;
  * #L%
  */
 
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.postgresql.PostgreSQLContainer;
 
-public class PostgresStarter extends PostgreSQLContainer<PostgresStarter> {
+public class PostgresStarter extends PostgreSQLContainer {
   private static final String IMAGE_VERSION = "postgres:16";
-  private static PostgresStarter container;
+  private static PostgreSQLContainer container;
 
   private PostgresStarter() {
     super(IMAGE_VERSION);
   }
 
-  public static PostgresStarter getInstance() {
+  public static PostgreSQLContainer getInstance() {
     if (container == null) {
       container = new PostgresStarter().withDatabaseName("pseudonym");
     }
