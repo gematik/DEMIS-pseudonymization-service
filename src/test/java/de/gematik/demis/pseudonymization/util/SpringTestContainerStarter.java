@@ -32,7 +32,7 @@ import de.gematik.demis.pseudonymization.core.Endpoint;
 import de.gematik.demis.pseudonymization.core.PseudonymizationResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability;
+import org.springframework.boot.micrometer.tracing.test.autoconfigure.AutoConfigureTracing;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -42,15 +42,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.web.client.RestTemplate;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.postgresql.PostgreSQLContainer;
 
 @SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfiguration
-@AutoConfigureObservability
 @Slf4j
+@AutoConfigureTracing
 public abstract class SpringTestContainerStarter {
-  protected static final PostgreSQLContainer<PostgresStarter> postgreSQLContainer =
-      PostgresStarter.getInstance();
+  protected static final PostgreSQLContainer postgreSQLContainer = PostgresStarter.getInstance();
 
   private final RestTemplate restTemplate = new RestTemplate();
   @LocalServerPort private int port;

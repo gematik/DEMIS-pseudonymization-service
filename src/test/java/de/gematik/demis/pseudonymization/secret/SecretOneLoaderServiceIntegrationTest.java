@@ -33,6 +33,7 @@ import de.gematik.demis.pseudonymization.secret.model.SecretOneRepository;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.testcontainers.shaded.org.apache.commons.lang3.StringUtils;
 
 @ExtendWith(MockitoExtension.class)
 class SecretOneLoaderServiceIntegrationTest {
